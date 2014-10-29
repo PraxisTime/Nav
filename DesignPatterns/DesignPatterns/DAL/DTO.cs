@@ -14,7 +14,7 @@ namespace MVC5Demo.DTO
         private IDbTransaction transaction;  
  
         public string ConnectionString
-        {
+        {//naveen
             get
             {
               if (strConnectionString == string.Empty || strConnectionString.Length == 0)
