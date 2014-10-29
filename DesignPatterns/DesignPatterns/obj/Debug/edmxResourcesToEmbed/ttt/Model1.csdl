@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Standard">
+    <Key>
+      <PropertyRef Name="StandardId" />
+    </Key>
+    <Property Name="StandardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="StudentInfoes" Relationship="Self.FK_dbo_StudentInfo_dbo_Standards_StdId" FromRole="Standards" ToRole="StudentInfo" />
+  </EntityType>
+  <EntityType Name="StudentInfo">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StdId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Standard" Relationship="Self.FK_dbo_StudentInfo_dbo_Standards_StdId" FromRole="StudentInfo" ToRole="Standards" />
+  </EntityType>
+  <Association Name="FK_dbo_StudentInfo_dbo_Standards_StdId">
+    <End Role="Standards" Type="Self.Standard" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="StudentInfo" Type="Self.StudentInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Standards">
+        <PropertyRef Name="StandardId" />
+      </Principal>
+      <Dependent Role="StudentInfo">
+        <PropertyRef Name="StdId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Standards" EntityType="Self.Standard" />
+    <EntitySet Name="StudentInfoes" EntityType="Self.StudentInfo" />
+    <AssociationSet Name="FK_dbo_StudentInfo_dbo_Standards_StdId" Association="Self.FK_dbo_StudentInfo_dbo_Standards_StdId">
+      <End Role="Standards" EntitySet="Standards" />
+      <End Role="StudentInfo" EntitySet="StudentInfoes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
