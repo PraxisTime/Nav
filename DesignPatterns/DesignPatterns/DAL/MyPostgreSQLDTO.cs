@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Npgsql;
+using System.Configuration;
 
 
 namespace MVC5Demo.DTO
@@ -13,9 +14,10 @@ namespace MVC5Demo.DTO
         {
         }
 
-        public  MyPostgreSQLDTO(string ConnectinString)
+        public  MyPostgreSQLDTO(string ConnectinString )
         {
-            this.ConnectionString = String.Format("Server={0};Port={1};" +"User Id={2};Password={3};Database={4};","localhost", "5432", "postgres", "s@1", "postgres");
+            //this.ConnectionString = String.Format("Server={0};Port={1};" +"User Id={2};Password={3};Database={4};","localhost", "5432", "postgres", "s@1", "postgres");
+            this.ConnectionString = ConfigurationManager.ConnectionStrings["SchoolPostgreSQL"].ToString();
         }
 
         public override System.Data.IDbConnection GetConnection()//test
