@@ -60,123 +60,124 @@ namespace DoFactory.GangOfFour.Adapter.Structural
     //    }
     //}
 
-    namespace AbstractClassExamples
-    {
+    //namespace AbstractClassExamples
+    //{
 
 
-        interface IVehicle
-        {
-            void Message2();
-            void Message();
-        }
+    //    interface IVehicle
+    //    {
+    //        void Message2();
+    //        void Message();
+    //    }
 
 
-        abstract class AVehicle
-        {
-            public abstract void Message();
-            public  void Message1()
-            {
-                Console.WriteLine("Abstract Implemented Abstract Class");
-            }
+    //    abstract class AVehicle
+    //    {
+    //        public abstract void Message();
+    //        public  void Message1()
+    //        {
+    //            Console.WriteLine("Abstract Implemented Abstract Class");
+    //        }
 
-            public  virtual void Message2()
-            {
-                Console.WriteLine("Abstract virtual Implemented Abstract Class");
-            }
+    //        public  virtual void Message2()
+    //        {
+    //            Console.WriteLine("Abstract virtual Implemented Abstract Class");
+    //        }
            
-        }
+    //    }
         
 
-        class Vehicle : AVehicle
-        {
-            public override void Message()
-            {
-                Console.WriteLine("Base Override");
-            }
+    //    class Vehicle : AVehicle
+    //    {
+    //        public override void Message()
+    //        {
+    //            Console.WriteLine("Base Override");
+    //        }
 
-            public new void Message1()
-            {
-                Console.WriteLine("Base New message1");
-            }
+    //        public new void Message1()
+    //        {
+    //            Console.WriteLine("Base New message1");
+    //        }
 
-            public override  void Message2()
-            {
-                Console.WriteLine("Base New message2");
-            }
+    //        public override  void Message2()
+    //        {
+    //            Console.WriteLine("Base New message2");
+    //        }
             
-        }
+    //    }
 
-        //DTO MAIN
-        //class Program
-        //{
-        //    static void Main(string[] args)
-        //    {
-
-        //        string choice = string.Empty, dbProvider = string.Empty;
-        //        bool done = false;
-        //        do
-        //        {
-        //            Console.Clear();
-        //            Console.WriteLine("\t Select one of the Database Providers \n");
-        //            Console.WriteLine("\t 1. Access / OleDb");
-        //            Console.WriteLine("\t 2. Odbc");
-        //            Console.WriteLine("===============================================");
-        //            Console.Write("\t Enter Your Selection (0 to exit) : ");
-        //            choice = Console.ReadLine();
-
-        //            switch (choice)
-        //            {
-        //                case "0":
-        //                    done = true;
-        //                    break;
-        //                case "1":
-        //                    dbProvider = "Postgres";
-        //                    break;
-        //                case "2":
-        //                    dbProvider = "mssql";
-        //                    break;
-        //            }
-        //            if (choice != "0")
-        //            {
-        //                Console.WriteLine("===========================================");
-        //                DTOFactory Factory = new DbDTO();
-        //                var DAL = Factory.GetDataAccessLayer((DataProviderType)Enum.Parse(typeof(DataProviderType), dbProvider));
-        //                Console.WriteLine(DAL.OpenConnection());
-        //                Console.ReadKey();
-        //            }
-        //        } while (!done);
-        //    }
-
-        //}
-
-        class Program
+   // DTO MAIN
+    class Program
+    {
+        static void Main(string[] args)
         {
-            static void Main(string[] args)
+
+            string choice = string.Empty, dbProvider = string.Empty;
+            bool done = false;
+            do
             {
-                try
+                Console.Clear();
+                Console.WriteLine("\t Select one of the Database Providers \n");
+                Console.WriteLine("\t 1. POSTGRES SQL");
+                Console.WriteLine("\t 2. MSSQL");
+                Console.WriteLine("===============================================");
+                Console.Write("\t Enter Your Selection (0 to exit) : ");
+                choice = Console.ReadLine();
+
+                switch (choice)
                 {
-
-                    
-                    using (var ctx = new SchoolDTO())
-                    {
-
-                        ctx.SSLCStudents.Add(new Student() { StudentName = "Mahesh", Standard = new Standard() { StandardName = "SSLC" } });
-                        ctx.SSLCStudents.Add(new Student() { StudentName = "Jagadish", Standard = new Standard() { StandardName = "PUC" } });
-                        ctx.SSLCStudents.Add(new Student() { StudentName = "Sharma", Standard = new Standard() { StandardName = "BE" } });
-                        ctx.SaveChanges();
-                    }
-                    Console.WriteLine("Completed");
-                    Console.ReadLine();
+                    case "0":
+                        done = true;
+                        break;
+                    case "1":
+                        dbProvider = "Postgres";
+                        break;
+                    case "2":
+                        dbProvider = "mssql";
+                        break;
                 }
-                catch (Exception Ex)
+                if (choice != "0")
                 {
-                    Console.WriteLine(Ex.Message);
-                    Console.ReadLine();
+                    Console.WriteLine("===========================================");
+                    DTOFactory Factory = new DbDTO();
+                    var DAL = Factory.GetDataAccessLayer((DataProviderType)Enum.Parse(typeof(DataProviderType), dbProvider));
+                    Console.WriteLine(DAL.OpenConnection());
+                    Console.ReadKey();
                 }
-                
-            }
-
+            } while (!done);
         }
     }
+
+    //    //}
+
+    //    class Program
+    //    {
+    //        static void Main(string[] args)
+    //        {
+    //            try
+    //            {
+
+                    
+    //                using (var ctx = new SchoolDTO())
+    //                {
+
+    //                    ctx.SSLCStudents.Add(new Student() { StudentName = "Mahesh", Standard = new Standard() { StandardName = "SSLC" } });
+    //                    ctx.SSLCStudents.Add(new Student() { StudentName = "Jagadish", Standard = new Standard() { StandardName = "PUC" } });
+    //                    ctx.SSLCStudents.Add(new Student() { StudentName = "Sharma", Standard = new Standard() { StandardName = "BE" } });
+    //                    ctx.SaveChanges();
+    //                }
+    //                Console.WriteLine("Completed");
+    //                Console.ReadLine();
+    //            }
+    //            catch (Exception Ex)
+    //            {
+    //                Console.WriteLine(Ex.Message);
+    //                Console.ReadLine();
+    //            }
+                
+    //        }
+
+    //    }
+    //}
 }
  

@@ -12,6 +12,7 @@ namespace MVC5Demo.DTO
     {
         public MyPostgreSQLDTO()
         {
+            this.ConnectionString = ConfigurationManager.ConnectionStrings["SchoolPostgreSQL"].ToString();
         }
 
         public  MyPostgreSQLDTO(string ConnectinString )

@@ -19,7 +19,7 @@ namespace DesignPatterns.EntityFramework
         // Data Source=localhost; Initial Catalog=TestDB; Integrated Security=True; MultipleActiveResultSets=True;
         //nameOrConnectionString: "SchoolPostgreSQL"
         public SchoolDTO()
-            : base("Data Source=localhost; Initial Catalog=TestDB; Integrated Security=True; MultipleActiveResultSets=True;")
+            : base(nameOrConnectionString: "SchoolPostgreSQL")
         {
             // Turnoff DB Reset 
            // string test= ;

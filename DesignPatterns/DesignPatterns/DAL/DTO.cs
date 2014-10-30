@@ -42,14 +42,14 @@ namespace MVC5Demo.DTO
             try
             {
              connection = GetConnection(); // instantiate a connection object
-             //connection.ConnectionString = this.ConnectionString;
-             //connection.Open(); // open connection
+             connection.ConnectionString = this.strConnectionString;
+             connection.Open(); // open connection
              Response = ((System.Reflection.MemberInfo)(connection.GetType())).Name + "Open Successfully";
             }
-            catch
+            catch(Exception Ex)
             {
                 connection.Close();
-                Response = "Unable to Open " +((System.Reflection.MemberInfo)(connection.GetType())).Name;
+                Response = "Unable to Open " + ((System.Reflection.MemberInfo)(connection.GetType())).Name + ":" + Ex.Message;
             }
             return Response;
         }
