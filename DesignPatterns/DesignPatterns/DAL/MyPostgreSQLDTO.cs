@@ -18,7 +18,7 @@ namespace MVC5Demo.DTO
             this.ConnectionString = String.Format("Server={0};Port={1};" +"User Id={2};Password={3};Database={4};","localhost", "5432", "postgres", "s@1", "postgres");
         }
 
-        public override System.Data.IDbConnection GetConnection()
+        public override System.Data.IDbConnection GetConnection()//test
         {
             return new  NpgsqlConnection();
         }
