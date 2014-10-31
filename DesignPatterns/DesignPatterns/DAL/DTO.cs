@@ -44,6 +44,7 @@ namespace MVC5Demo.DTO
              connection = GetConnection(); // instantiate a connection object
              connection.ConnectionString = this.strConnectionString;
              connection.Open(); // open connection
+             connection.Close();
              Response = ((System.Reflection.MemberInfo)(connection.GetType())).Name + "Open Successfully";
             }
             catch(Exception Ex)

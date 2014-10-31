@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DesignPatterns.EntityFramework
 {
-    //[Table("Standard")]  //, Schema = "public"
+    [Table("Standard")]  //, Schema = "public"
     public class Standard
     {
         public Standard()

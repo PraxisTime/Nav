@@ -11,10 +11,10 @@ namespace DesignPatterns.EntityFramework
     {
         protected override void Seed(SchoolDTO ctx)
         {
-            ctx.SSLCStudents.Add(new Student() { StudentName = "Mahesh", Standard = new Standard() { StandardName = "SSLC" } });
-            ctx.SSLCStudents.Add(new Student() { StudentName = "Jagadish", Standard = new Standard() { StandardName = "PUC" } });
-            ctx.SSLCStudents.Add(new Student() { StudentName = "Sharma", Standard = new Standard() { StandardName = "BE" } });
-            ctx.SaveChanges();
+            //ctx.SSLCStudents.Add(new Student() { StudentName = "Mahesh", Standard = new Standard() { StandardName = "SSLC" } });
+            //ctx.SSLCStudents.Add(new Student() { StudentName = "Jagadish", Standard = new Standard() { StandardName = "PUC" } });
+            //ctx.SSLCStudents.Add(new Student() { StudentName = "Sharma", Standard = new Standard() { StandardName = "BE" } });
+            //ctx.SaveChanges();
         }
     }
 }

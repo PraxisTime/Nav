@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using MVC5Demo.DTO;
 using DesignPatterns.EntityFramework;
 using System.Data.Entity;
+using Npgsql;
+using System.Data;
 
 namespace DoFactory.GangOfFour.Adapter.Structural
 {
@@ -106,78 +108,125 @@ namespace DoFactory.GangOfFour.Adapter.Structural
             
     //    }
 
-   // DTO MAIN
+#region DTO
+    //class Program
+    //{
+    //    static void Main(string[] args)
+    //    {
+
+    //        string choice = string.Empty, dbProvider = string.Empty;
+    //        bool done = false;
+    //        do
+    //        {
+    //            Console.Clear();
+    //            Console.WriteLine("\t Select one of the Database Providers \n");
+    //            Console.WriteLine("\t 1. POSTGRES SQL");
+    //            Console.WriteLine("\t 2. MSSQL");
+    //            Console.WriteLine("===============================================");
+    //            Console.Write("\t Enter Your Selection (0 to exit) : ");
+    //            choice = Console.ReadLine();
+
+    //            switch (choice)
+    //            {
+    //                case "0":
+    //                    done = true;
+    //                    break;
+    //                case "1":
+    //                    dbProvider = "Postgres";
+    //                    break;
+    //                case "2":
+    //                    dbProvider = "mssql";
+    //                    break;
+    //            }
+    //            if (choice != "0")
+    //            {
+    //                Console.WriteLine("===========================================");
+    //                DTOFactory Factory = new DbDTO();
+    //                var DAL = Factory.GetDataAccessLayer((DataProviderType)Enum.Parse(typeof(DataProviderType), dbProvider));
+    //                Console.WriteLine(DAL.OpenConnection());
+    //                Console.ReadKey();
+    //            }
+    //        } while (!done);
+    //    }
+    //}
+#endregion
+    //    //}
+
+    #region Multi Tennent
     class Program
     {
+        
         static void Main(string[] args)
         {
 
-            string choice = string.Empty, dbProvider = string.Empty;
-            bool done = false;
-            do
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            try
+            {                 
+               // var ctx1 = new SchoolDTO();
+               //// ctx1.Database.Connection.Open();
+
+                //string sql = "SELECT * FROM simple_table";
+                //// data adapter making request from our connection
+
+                //NpgsqlConnection conn = new NpgsqlConnection("Server=localhost;Port=5432;Database=Test;User Id=postgres;Password=s@1;");
+
+                //NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                //// i always reset DataSet before i do
+                //// something with it.... i don't know why :-)
+                //ds.Reset();
+                //// filling DataSet with result from NpgsqlDataAdapter
+                //da.Fill(ds);
+                //// since it C# DataSet can handle multiple tables, we will select first
+                //dt = ds.Tables[0];
+
+
+              //  ctx1.Database.Connection.Close();
+                using (var ctx = new SchoolDTO())
+                {
+                  //  ctx.Database.Connection.Open();
+                    ctx.SSLCStudents.Add(new Student() { StudentName = "Mahesh" });
+                    ctx.SSLCStudents.Add(new Student() { StudentName = "Suresh" });
+                    ctx.SSLCStudents.Add(new Student() { StudentName = "Rajesh" });
+                    //ctx.SSLCStudents.Add(new Student() { StudentName = "Jagadish", Standard = new Standard() { StandardName = "PUC" } });
+                    //ctx.SSLCStudents.Add(new Student() { StudentName = "Sharma", Standard = new Standard() { StandardName = "BE" } });
+                    ctx.SaveChanges();
+                }
+                Console.WriteLine("Completed");
+                Console.ReadLine();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
             {
-                Console.Clear();
-                Console.WriteLine("\t Select one of the Database Providers \n");
-                Console.WriteLine("\t 1. POSTGRES SQL");
-                Console.WriteLine("\t 2. MSSQL");
-                Console.WriteLine("===============================================");
-                Console.Write("\t Enter Your Selection (0 to exit) : ");
-                choice = Console.ReadLine();
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine(Ex.Message);
+                Console.ReadLine();
+            }
 
-                switch (choice)
-                {
-                    case "0":
-                        done = true;
-                        break;
-                    case "1":
-                        dbProvider = "Postgres";
-                        break;
-                    case "2":
-                        dbProvider = "mssql";
-                        break;
-                }
-                if (choice != "0")
-                {
-                    Console.WriteLine("===========================================");
-                    DTOFactory Factory = new DbDTO();
-                    var DAL = Factory.GetDataAccessLayer((DataProviderType)Enum.Parse(typeof(DataProviderType), dbProvider));
-                    Console.WriteLine(DAL.OpenConnection());
-                    Console.ReadKey();
-                }
-            } while (!done);
         }
+
     }
+    #endregion
 
-    //    //}
 
-    //    class Program
-    //    {
-    //        static void Main(string[] args)
-    //        {
-    //            try
-    //            {
 
-                    
-    //                using (var ctx = new SchoolDTO())
-    //                {
 
-    //                    ctx.SSLCStudents.Add(new Student() { StudentName = "Mahesh", Standard = new Standard() { StandardName = "SSLC" } });
-    //                    ctx.SSLCStudents.Add(new Student() { StudentName = "Jagadish", Standard = new Standard() { StandardName = "PUC" } });
-    //                    ctx.SSLCStudents.Add(new Student() { StudentName = "Sharma", Standard = new Standard() { StandardName = "BE" } });
-    //                    ctx.SaveChanges();
-    //                }
-    //                Console.WriteLine("Completed");
-    //                Console.ReadLine();
-    //            }
-    //            catch (Exception Ex)
-    //            {
-    //                Console.WriteLine(Ex.Message);
-    //                Console.ReadLine();
-    //            }
-                
-    //        }
-
-    //    }
-    //}
+    
+    
 }
  
